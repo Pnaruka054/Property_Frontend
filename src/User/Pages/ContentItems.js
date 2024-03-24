@@ -18,8 +18,12 @@ function ContentItems() {
     let [contentsDatabase, setContentsDatabase] = useState([])
 
     let dataBase = async () => {
-        let response = await axios.get('http://localhost:8000/')
-        setContentsDatabase([...Contents, ...response.data])
+        try {
+            let response = await axios.get('http://localhost:8000/')
+            setContentsDatabase([...Contents, ...response.data])
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     useEffect(() => {
