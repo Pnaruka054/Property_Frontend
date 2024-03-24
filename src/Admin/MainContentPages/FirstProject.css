@@ -1,0 +1,53 @@
+.firstProject {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+    width: 100%;
+}
+
+.firstProject form {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.firstProject legend {
+    border-bottom: 1px solid black;
+}
+
+.firstProject table {
+    font-size: 20px;
+}
+
+.firstProject table tr td {
+    padding: 10px;
+}
+
+.adminButtonFirst {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.adminBTN1,
+.adminBTN2 {
+    padding: 5px 15px;
+    font-size: 20px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+}
+
+.adminBTN1:hover,
+.adminBTN2:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+
+.adminButtonClicked {
+    transform: scale(0.99, 0.99);
+    box-shadow: 0 0 0 2px black inset;
+}

@@ -21,10 +21,10 @@ function App() {
 }
 
 function Allcontent() {
-    let location = useLocation
+    let location = useLocation()
     let [ShowHF, setShowHF] = useState(true)
     useEffect(() => {
-        setShowHF(window.location.pathname !== '/admin')
+        setShowHF(location.pathname !== '/admin')
     }, [location])
     return (
         <div>

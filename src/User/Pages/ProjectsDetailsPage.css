@@ -1,0 +1,6 @@
+.projectDetailUserInfo{
+    background-color: rgb(253, 246, 238);
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}

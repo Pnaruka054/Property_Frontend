@@ -1,0 +1,93 @@
+.Hero {
+    height: 500px;
+    background-color: black;
+    width: 98%;
+    margin: auto;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.Hero img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.userInfoHero {
+    display: flex;
+    align-items: center;
+}
+
+.like1 {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    position: absolute;
+    right: 5px;
+}
+
+.like1:hover{
+    background-color: white;
+    color: black;
+}
+
+.userHero {
+    width: 400px;
+    position: absolute;
+    z-index: 1;
+    backdrop-filter: blur(100px);
+    bottom: 10px;
+    left: 10px;
+    border-radius: 20px;
+    padding: 10px;
+    color: white;
+    transition: all 0.2s linear;
+}
+
+.userHero:hover{
+    transform: scale(1.04, 1.04);
+}
+
+.userImageHero {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 0;
+}
+
+.userImageHero img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.projectShort h1 {
+    font-size: 25px;
+}
+
+.projectShort p {
+    font-size: 14px;
+    color: rgb(201, 198, 198);
+}
+
+.userNameHero{
+    margin-left: 10px;
+}
+
+.userNameHero p:nth-child(1) {
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+.userNameHero p:nth-child(2) {
+    margin-bottom: 0;
+    font-weight: bold;
+    color: rgb(216, 213, 213);
+    font-size: 13px;
+}

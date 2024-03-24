@@ -1,0 +1,25 @@
+.AdminPageDiv {
+    background-color: rgb(218, 218, 218);
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.sideBarDiv {
+    background-color: rgb(56, 56, 56);
+    height: 100vh;
+}
+
+.addProjects {
+    padding: 10px 20px;
+    color: white;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+    border-top: 1px solid rgb(129, 129, 129);
+    border-bottom: 1px solid rgb(129, 129, 129);
+}
+
+.sideBarButtonClicked {
+    background-color: rgb(255, 0, 0);
+}
