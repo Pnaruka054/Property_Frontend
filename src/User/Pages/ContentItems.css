@@ -34,18 +34,25 @@
 
 .userName {
     margin-left: 10px;
+    width: 57%;
 }
 
-.userName p:nth-child(1) {
+.userName div:nth-child(1) {
     margin-bottom: 0;
     font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.userName p:nth-child(2) {
+.userName div:nth-child(2) {
     margin-bottom: 0;
     font-weight: bold;
     color: rgb(131, 131, 131);
     font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .like {
@@ -59,6 +66,28 @@
     position: absolute;
     right: 5px;
     padding: 2px 5px;
+}
+
+.like.disabled {
+    background-color: rgb(231, 231, 231);
+    color: rgb(77, 77, 77);
+    border: 1px solid white;
+}
+
+.like:disabled {
+    background-color: rgb(231, 231, 231);
+    color: rgb(77, 77, 77);
+    border: 1px solid white;
+}
+
+.like.disabled:hover {
+    background-color: rgb(231, 231, 231);
+    color: rgb(77, 77, 77);
+}
+
+.like:disabled:hover {
+    background-color: rgb(231, 231, 231);
+    color: rgb(77, 77, 77);
 }
 
 .like div {
@@ -80,4 +109,193 @@
     width: 100%;
     height: 100%;
     border-radius: 10px;
+}
+
+@media (max-width: 1100px) {
+    .Image {
+        height: 190px;
+    }
+
+    .userName {
+        width: 48%;
+    }
+
+    .contentItemsDiv {
+        width: 320px;
+    }
+
+    .userName div:nth-child(1) {
+        font-size: 1rem;
+    }
+
+    .userName div:nth-child(2) {
+        font-size: 0.9rem;
+    }
+
+    .like,
+    .like div {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 964px) {
+    .userImage {
+        width: 7vw;
+        height: auto;
+        aspect-ratio: 1/1;
+    }
+
+    .userName {
+        width: 45%;
+    }
+
+    .Image {
+        height: auto;
+    }
+
+    .Image img {
+        width: 41.7vw;
+        aspect-ratio: 16/9;
+        height: auto;
+    }
+
+    .contentItemsDiv {
+        width: 90%;
+
+    }
+
+    .contentItemsDiv {
+        margin: 10px auto;
+    }
+
+    .forGrid {
+        display: grid;
+        grid-template-columns: repeat(2, 48vw);
+    }
+}
+
+@media (max-width: 706px) {
+
+    .userName div:nth-child(1) {
+        font-size: 0.8rem;
+    }
+
+    .userName div:nth-child(2) {
+        font-size: 0.5rem;
+    }
+
+    .like,
+    .like div {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 626px) {
+
+    .userImage {
+        width: 6vw;
+    }
+}
+
+@media (max-width: 577px) {
+
+    .like,
+    .like div {
+        font-size: 0.8rem;
+        padding: 1px 2px;
+    }
+
+    .userImage {
+        width: 6vw;
+    }
+}
+
+@media (max-width: 495px) {
+    .userImage {
+        width: 10vw;
+        height: auto;
+        aspect-ratio: 1/1;
+    }
+
+    .userName {
+        width: 50%;
+    }
+
+    .userName div:nth-child(1) {
+        font-size: 1.3rem;
+    }
+
+    .userName div:nth-child(2) {
+        font-size: 0.9rem;
+    }
+
+    .like,
+    .like div {
+        font-size: 1.5rem;
+    }
+
+    .Image img {
+        width: 83vw;
+    }
+
+    .forGrid {
+        grid-template-columns: repeat(1, 95vw);
+    }
+}
+
+@media (max-width: 410px) {
+    .userName div:nth-child(1) {
+        font-size: 0.9rem;
+    }
+
+    .userName div:nth-child(2) {
+        font-size: 0.5rem;
+    }
+
+    .like,
+    .like div {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 300px) {
+
+    .MenuBarUl {
+        margin-top: 0px;
+    }
+
+    .userName {
+        width: 45%;
+    }
+
+    .contentItemsDiv {
+        width: 90%;
+    }
+
+    .like,
+    .like div {
+        font-size: 1rem;
+    }
+
+    .like {
+        right: 1px;
+        top: 1px;
+    }
+
+    .userName div:nth-child(1) {
+        font-size: 0.9rem;
+    }
+
+    .userName div:nth-child(2) {
+        font-size: 0.5rem;
+    }
+
+    .forGrid {
+        grid-template-columns: repeat(1, 93vw);
+    }
+
+    .Image img {
+        width: 81vw;
+    }
+
 }

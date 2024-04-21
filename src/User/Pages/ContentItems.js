@@ -1,74 +1,81 @@
-import { Link } from 'react-router-dom'
-import './ContentItems.css'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-
-export const Contents = [
-    {
-        userImage: './man1.webp',
-        Name: 'Ajay Singh',
-        userName: '@Prem Singh',
-        likes: 10,
-        image: 'sec.jpg'
-    },
-]
+import { Link } from 'react-router-dom';
+import './ContentItems.css';
+import { useState } from 'react';
+import axios from 'axios';
 
 function ContentItems() {
+    const [contentsDatabase, setContentsDatabase] = useState([]);
 
-    let [contentsDatabase, setContentsDatabase] = useState([])
 
-    let dataBase = async () => {
+    const fetchData = async () => {
         try {
-            let response = await axios.get('http://localhost:8000/')
-            setContentsDatabase([...Contents, ...response.data])
+            const response = await axios.get('/get');
+            setContentsDatabase(response.data);
         } catch (error) {
-            console.log(error)
+            console.log(error);
+        }
+    };
+    fetchData();
+
+
+    async function likesUpdate(mainId, id, event) {
+        try {
+            if (event.target.classList.contains('fa-regular') && event.target.classList.contains('fa-thumbs-up')) {
+                event.target.parentElement.disabled = true;
+                event.target.parentElement.classList.add('disabled')
+            } else if (event.target.classList.contains('premsingh1')) {
+                event.target.parentElement.disabled = true;
+                event.target.parentElement.classList.add('disabled')
+            } else {
+                event.target.disabled = true;
+                event.target.parentElement.classList.add('disabled')
+            }
+
+            let likes = contentsDatabase[mainId].likes
+            likes += 1
+            await axios.patch(`/patchContent/${id}`, { likes });
+            event.target.disabled = true;
+        } catch (error) {
+            console.error('Error updating likes:', error);
         }
     }
 
-    useEffect(() => {
-        dataBase()
-    }, [])
-
-    async function itemdelete(id) {
-        try {
-            let deletedRes = await axios.delete(`http://localhost:8000/${id}`)
-            if (deletedRes.data) {
-                setContentsDatabase(contentsDatabase.filter(p => p._id !== id)
-                );
-            }
-        } catch (error) {
-            console.error('Error deleting item:', error);
+    function formatLikes(likes) {
+        if (likes < 1000) {
+            return likes
+        } else if (likes < 1000000) {
+            return (likes / 1000).toFixed(2) + 'K';
+        } else if (likes < 1000000000) {
+            return (likes / 1000000).toFixed(2) + 'M';
+        } else {
+            return (likes / 1000000000).toFixed(2) + 'B';
         }
     }
 
     return (
-        <div>
-            {
-                contentsDatabase.map((item, id) => (
-                    <div className="contentItemsDiv" key={id}>
-                        <div className='userInfo'>
-                            <div className='userImage'>
-                                <img src='./man1.webp' alt='man' />
-                            </div>
-                            <div className='userName'>
-                                <p>{item.Name}</p>
-                                <p>{item.userName}</p>
-                            </div>
-                            <div className='like' onClick={() => itemdelete(item._id)}>
-                                <div>{item.likes}</div>
-                                <i className="fa-regular fa-thumbs-up"></i>
-                            </div>
+        <div className='forGrid'>
+            {contentsDatabase.map((item, id) => (
+                <div className="contentItemsDiv" key={id}>
+                    <div className='userInfo'>
+                        <div className='userImage'>
+                            <img src={item.ProfileLogo} alt='man' />
                         </div>
-                        <div className='Image'>
-                            <Link to={`/ProjectsDetailsPage/${id}`}><img src={item.image} alt='sec' /></Link>
+                        <div className='userName'>
+                            <div>{item.Name}</div>
+                            <div>{item.userName}</div>
                         </div>
+                        <button className='like' onClick={(event) => likesUpdate(id, item._id, event)}>
+                            <div className='premsingh1'>{formatLikes(item.likes)}</div>
+                            <i className="fa-regular fa-thumbs-up"></i>
+                        </button>
                     </div>
-                )
-                )
-            }
-        </div >
-    )
+                    <div className='Image'>
+                        <Link to={`/ProjectsDetailsPage/${id}`}><img src={item.ProjectImage} alt='sec' /></Link>
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
 }
 
-export default ContentItems
+export default ContentItems;

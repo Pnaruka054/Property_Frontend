@@ -1,9 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
-import './AddProjects.css'
+import './editAddedProject.css'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom'
 
-function AddProjects() {
+function EditAddedProject() {
+
+    const { index } = useParams()
     const [editProfileName, setEditProfileName] = useState('');
     const [editProfileUsername, setEditProfileUsername] = useState('');
     const [EditProjectImage, setEditProjectImage] = useState(null);
@@ -11,60 +13,19 @@ function AddProjects() {
     const [editProjectLIkes, setEditProjectLIkes] = useState('');
     const [editProjectTitle, setEditProjectTitle] = useState('');
     const [editProjectDiscription, setEditProjectDiscription] = useState('');
-    const [getdata1, setGetdata1] = useState([])
+    const [getdata1, setGetdata1] = useState(null)
 
-    let PostDataBase = async (AllData) => {
-        try {
-            await axios.post('/post', AllData)
-            Loading.current.className = 'AddProjectLoadingDiv'
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    let Loading = useRef()
     useEffect(() => {
         const Database = async () => {
             try {
-                console.log(Loading)
-                Loading.current.className = 'AddProjectLoading'
                 let FirstDataGet = await axios.get('/getAdded')
                 setGetdata1(FirstDataGet.data)
-                Loading.current.className = 'AddProjectLoadingDiv'
             } catch (error) {
                 console.log(error)
             }
         }
         Database()
     }, [])
-
-    const Database = async () => {
-        try {
-            let FirstDataGet = await axios.get('/getAdded')
-            setGetdata1(FirstDataGet.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    Database()
-
-    let addProjectDeleted = async (ObjId, index) => {
-        let ProjectImageLInk = getdata1[index].ProjectImage
-        let ProjectImageArray = ProjectImageLInk.split('/')
-        let ProjectImage = ProjectImageArray[ProjectImageArray.length - 1].split('.')[0]
-
-        let ProfileLogoLink = getdata1[index].ProfileLogo
-        let ProfileLogoArray = ProfileLogoLink.split('/')
-        let ProfileLogo = ProfileLogoArray[ProfileLogoArray.length - 1].split('.')[0]
-
-        try {
-            await axios.delete(`/deleteAddedData/${ObjId}?ProjectImage=${ProjectImage}&ProfileLogo=${ProfileLogo}`)
-            Loading.current.className = 'AddProjectLoadingDiv'
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     function adminButtonClicked(event) {
         event.target.classList.add('adminButtonClicked')
@@ -102,33 +63,53 @@ function AddProjects() {
         setEditProjectDiscription(event.target.value)
     }
 
+    let loading = document.querySelector('.editAddProjectLoadingDiv')
+    let PostDataBase = async (AllData) => {
+        try {
+            let ProjectImageLInk = getdata1[index].ProjectImage
+            let ProjectImageArray = ProjectImageLInk.split('/')
+            let ProjectImage = ProjectImageArray[ProjectImageArray.length - 1].split('.')[0]
+
+            let ProfileLogoLink = getdata1[index].ProfileLogo
+            let ProfileLogoArray = ProfileLogoLink.split('/')
+            let ProfileLogo = ProfileLogoArray[ProfileLogoArray.length - 1].split('.')[0]
+
+            let ObjID = getdata1[index]._id
+            await axios.patch(`/patchEditAddedProject/${ObjID}?ProjectImage=${ProjectImage}&ProfileLogo=${ProfileLogo}`, AllData)
+            loading.className = 'editAddProjectLoadingDiv'
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     function AddProjectsSubmited(event) {
         event.preventDefault();
 
-        if (editProfileName === '') {
-            alert('Please Enter Prifile Name')
-        } else if (editProfileUsername === '') {
-            alert('Please Enter Prifile User Name')
-
-        } else if (EditProjectLogo1 == null) {
-            alert('Please Select Profile Logo')
-        } else if (EditProjectImage == null) {
-            alert('Please Select Project Image')
-        } else if (editProjectTitle === '') {
-            alert('Please Enter Project Title')
-        } else if (editProjectDiscription === '') {
-            alert('Please Enter Project Discription')
-        } else {
+        if (editProfileName !== '' || editProfileUsername !== '' || editProjectLIkes !== '' || editProjectTitle !== '' || editProjectDiscription !== '' || EditProjectImage !== null || EditProjectLogo1 !== null) {
             const formData = new FormData();
-            formData.append('ProjectImage', EditProjectImage);
-            formData.append('ProfileLogo', EditProjectLogo1);
-            formData.append('Name', editProfileName);
-            formData.append('userName', editProfileUsername);
-            formData.append('likes', editProjectLIkes);
-            formData.append('projectTitle', editProjectTitle);
-            formData.append('projectDiscription', editProjectDiscription);
-            PostDataBase(formData);
 
+            if (editProfileName !== undefined) {
+                formData.append('Name', editProfileName);
+            }
+            if (editProfileUsername !== undefined) {
+                formData.append('userName', editProfileUsername);
+            }
+            if (editProjectLIkes !== undefined) {
+                formData.append('likes', editProjectLIkes);
+            }
+            if (editProjectTitle !== undefined) {
+                formData.append('projectTitle', editProjectTitle);
+            }
+            if (editProjectDiscription !== undefined) {
+                formData.append('projectDiscription', editProjectDiscription);
+            }
+            if (EditProjectImage !== undefined) {
+                formData.append('ProjectImage', EditProjectImage);
+            }
+            if (EditProjectLogo1 !== undefined) {
+                formData.append('ProfileLogo', EditProjectLogo1);
+            }
+            PostDataBase(formData);
             setEditProfileName('')
             setEditProfileUsername('')
             document.getElementById('editProfileLogoInput').value = null;
@@ -136,16 +117,34 @@ function AddProjects() {
             setEditProjectLIkes('')
             setEditProjectTitle('')
             setEditProjectDiscription('')
-            Loading.current.className = 'AddProjectLoading'
+            loading.className = 'editAddProjectLoading'
+        } else {
+            alert('Please Fill This Form')
         }
     };
+    const navigate = useNavigate();
+    function handleExitButtonClick() {
+        navigate('/admin');
+    }
+    if (!getdata1) {
+        return (
+            <div className='FirstProjectLoadingBefore'>
+                <i className="fa-duotone fa-spinner-third fa-spin"></i>
+                <div>
+                    Loading
+                    <i className="fa-solid fa-ellipsis fa-fade"></i>
+                </div>
+            </div>
+        )
+    }
 
     return (
-        <div className='AddProjectRelative'>
-            <div className='AddProjectLoadingDiv' ref={Loading}>
+        <div className='editAddProjectRelative'>
+            <div className='editAddProjectLoadingDiv'>
                 <i className="fa-duotone fa-spinner-third fa-spin"></i>
             </div>
-            <div className='addProjectsDiv'>
+            <button className='ExitButton' onClick={handleExitButtonClick}><i class="fa-solid fa-left-to-bracket"></i> Exit</button>
+            <div className='editAddProjectsDiv'>
                 <form>
                     <legend className='AddProjectLegend'>Admin Form (Projects Information)</legend>
                     <table>
@@ -206,9 +205,9 @@ function AddProjects() {
                                 <td><label>Enter Project Title</label></td>
                             </tr>
                             <tr className='AddProjectDetailsTR'>
-                                <td>
+                                <td> 
                                     <p style={{ marginBottom: '0', color: 'red' }}>* Required</p>
-                                    <textarea className='AddProjectTitleTextAria' value={editProjectTitle} onChange={editProjectTitleF} />
+                                    <textarea className='ProjectTitleTextAria' value={editProjectTitle} onChange={editProjectTitleF} />
                                 </td>
                             </tr>
                             <tr className='AddProjectEnterDiscription'>
@@ -224,8 +223,8 @@ function AddProjects() {
                             </tr> */}
                             <tr className='AddProjectDetailsTR'>
                                 <td className='AddProjectDetailsRequire'>
-                                    <p style={{ marginBottom: '0', color: 'red'}}>* Required</p>
-                                    <textarea className='AddProjectDiscriptionAria' value={editProjectDiscription} onChange={editProjectDiscriptionF} />
+                                    <p style={{ marginBottom: '0', color: 'red' }}>* Required</p>
+                                    <textarea className='ProjectDiscriptionAria' value={editProjectDiscription} onChange={editProjectDiscriptionF} />
                                 </td>
                             </tr>
                         </tbody>
@@ -236,27 +235,8 @@ function AddProjects() {
                     </div>
                 </form>
             </div>
-            {
-                getdata1.map((value, index) => {
-                    return (
-                        <div key={index} className='addContentUpdateDiv'>
-                            <div className='addContentTop'>
-                                <div>{index + 1}</div>
-                                <div>{value.projectTitle}</div>
-                            </div>
-                            <div className='addContentBottom'>
-                                <button className='addContentBottomBTN' onClick={() => { addProjectDeleted(value._id, index) }}>DELETE</button>
-                                <div>Object id - {value._id}</div>
-                                <Link to={`/admin/edit/${index}`}>
-                                    <button className='addContentBottomBTN'>UPDATE</button>
-                                </Link>
-                            </div>
-                        </div>
-                    );
-                })
-            }
         </div>
     )
 }
 
-export default AddProjects;
+export default EditAddedProject

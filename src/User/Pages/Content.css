@@ -1,4 +1,4 @@
-.contentDivParant{
+.contentDivParant {
     position: relative;
 }
 
@@ -63,4 +63,21 @@
     background-color: rgb(211, 211, 211);
     color: rgb(0, 0, 0);
     ;
+}
+
+@media (max-width: 964px) {
+    .contentDiv {
+        white-space: wrap;
+    }
+}
+
+@media (max-width: 964px) {
+    #leftButton,
+    #rightButton,
+    .leftContentShow,
+    .rightContentShow,
+    .rightContent,
+    .leftContent {
+        display: none;
+    }
 }

@@ -62,7 +62,7 @@ function Content() {
 
     return (
         <div className='contentDivParant'>
-            <div className='contentDiv' ref={scroll1Ref} style={{ overflowX: 'auto' }} onMouseEnter={showButton} onMouseLeave={hideButton} onScroll={leftScrolled} >
+            <div className='contentDiv' ref={scroll1Ref} onMouseEnter={showButton} onMouseLeave={hideButton} onScroll={leftScrolled} >
                 <button id='leftButton' className='leftContent' onClick={scrollLeft}>
                     <i className='fa-solid fa-caret-left'></i>
                 </button>
