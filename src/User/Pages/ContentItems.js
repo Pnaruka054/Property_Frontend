@@ -70,7 +70,8 @@ function ContentItems() {
                         </button>
                     </div>
                     <div className='Image'>
-                        <Link to={`/ProjectsDetailsPage/${id}`}><img src={item.ProjectImage} alt='sec' /></Link>
+                        <Link to={`/admin`}><img src={item.ProjectImage} alt='sec' /></Link>
+                        {/*  <Link to={`/ProjectsDetailsPage/${id}`}><img src={item.ProjectImage} alt='sec' /></Link> */}
                     </div>
                 </div>
             ))}
