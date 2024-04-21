@@ -13,7 +13,7 @@ function EditFooter() {
     useEffect(() => {
         const Database = async () => {
             try {
-                let FirstDataGet = await axios.get('/FooterGet')
+                let FirstDataGet = await axios.get('https://property-listing-website-backend.onrender.com/FooterGet')
                 setGetdata1(FirstDataGet.data)
             } catch (error) {
                 console.log(error)
@@ -50,7 +50,7 @@ function EditFooter() {
             let ProfileImage = ProfileImageArray[ProfileImageArray.length - 1].split('.')[0]
 
             let ObjID = getdata1[index]._id
-            await axios.patch(`/patchEditFooter/${ObjID}?ProfileLogo=${ProfileImage}`, AllData)
+            await axios.patch(`https://property-listing-website-backend.onrender.com/patchEditFooter/${ObjID}?ProfileLogo=${ProfileImage}`, AllData)
             loading.className = 'editAddProjectLoadingDiv'
         } catch (error) {
             console.log(error)

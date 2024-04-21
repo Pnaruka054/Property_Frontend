@@ -9,7 +9,7 @@ function ContentItems() {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('/get');
+            const response = await axios.get('https://property-listing-website-backend.onrender.com/get');
             setContentsDatabase(response.data);
         } catch (error) {
             console.log(error);
@@ -33,7 +33,7 @@ function ContentItems() {
 
             let likes = contentsDatabase[mainId].likes
             likes += 1
-            await axios.patch(`/patchContent/${id}`, { likes });
+            await axios.patch(`https://property-listing-website-backend.onrender.com/patchContent/${id}`, { likes });
             event.target.disabled = true;
         } catch (error) {
             console.error('Error updating likes:', error);

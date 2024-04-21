@@ -8,7 +8,7 @@ function FirstProject() {
 
     const Database = async () => {
         try {
-            let FirstDataGet = await axios.get('/getFirst')
+            let FirstDataGet = await axios.get('https://property-listing-website-backend.onrender.com/getFirst')
             setGetdata(...FirstDataGet.data)
         } catch (error) {
             console.log(error)

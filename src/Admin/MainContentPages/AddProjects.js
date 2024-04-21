@@ -15,7 +15,7 @@ function AddProjects() {
 
     let PostDataBase = async (AllData) => {
         try {
-            await axios.post('/post', AllData)
+            await axios.post('https://property-listing-website-backend.onrender.com/post', AllData)
             Loading.current.className = 'AddProjectLoadingDiv'
 
         } catch (error) {
@@ -28,7 +28,7 @@ function AddProjects() {
             try {
                 console.log(Loading)
                 Loading.current.className = 'AddProjectLoading'
-                let FirstDataGet = await axios.get('/getAdded')
+                let FirstDataGet = await axios.get('https://property-listing-website-backend.onrender.com/getAdded')
                 setGetdata1(FirstDataGet.data)
                 Loading.current.className = 'AddProjectLoadingDiv'
             } catch (error) {
@@ -40,7 +40,7 @@ function AddProjects() {
 
     const Database = async () => {
         try {
-            let FirstDataGet = await axios.get('/getAdded')
+            let FirstDataGet = await axios.get('https://property-listing-website-backend.onrender.com/getAdded')
             setGetdata1(FirstDataGet.data)
         } catch (error) {
             console.log(error)
@@ -58,7 +58,7 @@ function AddProjects() {
         let ProfileLogo = ProfileLogoArray[ProfileLogoArray.length - 1].split('.')[0]
 
         try {
-            await axios.delete(`/deleteAddedData/${ObjId}?ProjectImage=${ProjectImage}&ProfileLogo=${ProfileLogo}`)
+            await axios.delete(`https://property-listing-website-backend.onrender.com/deleteAddedData/${ObjId}?ProjectImage=${ProjectImage}&ProfileLogo=${ProfileLogo}`)
             Loading.current.className = 'AddProjectLoadingDiv'
 
         } catch (error) {

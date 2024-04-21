@@ -18,7 +18,7 @@ function EditAddedProject() {
     useEffect(() => {
         const Database = async () => {
             try {
-                let FirstDataGet = await axios.get('/getAdded')
+                let FirstDataGet = await axios.get('https://property-listing-website-backend.onrender.com/getAdded')
                 setGetdata1(FirstDataGet.data)
             } catch (error) {
                 console.log(error)
@@ -75,7 +75,7 @@ function EditAddedProject() {
             let ProfileLogo = ProfileLogoArray[ProfileLogoArray.length - 1].split('.')[0]
 
             let ObjID = getdata1[index]._id
-            await axios.patch(`/patchEditAddedProject/${ObjID}?ProjectImage=${ProjectImage}&ProfileLogo=${ProfileLogo}`, AllData)
+            await axios.patch(`https://property-listing-website-backend.onrender.com/patchEditAddedProject/${ObjID}?ProjectImage=${ProjectImage}&ProfileLogo=${ProfileLogo}`, AllData)
             loading.className = 'editAddProjectLoadingDiv'
         } catch (error) {
             console.log(error)

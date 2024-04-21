@@ -10,7 +10,7 @@ function ProjectsDetailsPage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('/get')
+                const response = await axios.get('https://property-listing-website-backend.onrender.com/get')
                 setFindedData(response.data[id])
             } catch (error) {
                 console.log(error)
