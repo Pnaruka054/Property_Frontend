@@ -19,7 +19,7 @@ function AddProjects() {
             Loading.current.className = 'AddProjectLoadingDiv'
 
         } catch (error) {
-            console.log(error)
+            console.log(error,'this is error')
         }
     }
     let Loading = useRef()
